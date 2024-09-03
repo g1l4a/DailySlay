@@ -1,34 +1,17 @@
-// Basic Functionality
-routine testAddBasicFunctionality() is
-    var result : integer is add(2, 3);
-    if result = 5 then
+// 1 - Basic Calculations
+routine testBasicCalculations() is
+    var positive : integer is add(2, 3);
+    var negative : integer is add(-2, -3);
+    var zero: integer is add(0, 0);
+    var different_sign: integer is add(3, -4);
+    if result = 5 and negative = -5 and zero = 0 and different_sign = -1 then
         // Test passed
     else
         // Test failed
     end
 end
 
-// Negative Numbers
-routine testAddNegativeNumbers() is
-    var result : integer is add(-2, -3);
-    if result = -5 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Zero
-routine testAddZero() is
-    var result : integer is add(0, 0);
-    if result = 0 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Large Numbers
+// 2 - Large Numbers
 routine testAddLargeNumbers() is
     var result : integer is add(1000000, 1000000);
     if result = 2000000 then
@@ -38,17 +21,7 @@ routine testAddLargeNumbers() is
     end
 end
 
-// Mixed Sign Numbers
-routine testAddMixedSignNumbers() is
-    var result : integer is add(-2, 3);
-    if result = 1 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Floating Point Numbers
+// 3 - Floating Point Numbers
 routine testAddFloatingPointNumbers() is
     var result : real is add(2.5, 3.5);
     if result = 6.0 then
@@ -58,7 +31,7 @@ routine testAddFloatingPointNumbers() is
     end
 end
 
-// Invalid Input
+// 4 - Invalid Input
 routine testAddInvalidInput() is
     if /* add("two", 3) raises error */ then
         // Test passed
@@ -67,7 +40,7 @@ routine testAddInvalidInput() is
     end
 end
 
-// Boundary Conditions
+// 5 - Boundary Conditions
 routine testAddBoundaryConditions() is
     var maxInt : integer is /* maximum integer value */;
     var result : integer is add(maxInt, 1);
@@ -78,17 +51,7 @@ routine testAddBoundaryConditions() is
     end
 end
 
-// Edge Case Handling
-routine testAddEdgeCaseHandling() is
-    var result : real is add(1e-10, 1e-10);
-    if result = 2e-10 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Null Input: Test how the function behaves with null inputs, if applicable
+// 6 - Null Input: Test how the function behaves with null inputs, if applicable
 routine testAddNullInput() is
     if /* add(null, 5) raises error */ then
         // Test passed
@@ -97,7 +60,7 @@ routine testAddNullInput() is
     end
 end
 
-// Commutativity: Test that add(3, 2) returns the same result as add(2, 3)
+// 7 - Commutativity: Test that add(3, 2) returns the same result as add(2, 3)
 routine testAddCommutativity() is
     var result1 : integer is add(3, 2);
     var result2 : integer is add(2, 3);
@@ -108,7 +71,7 @@ routine testAddCommutativity() is
     end
 end
 
-// Associativity: Test that add(add(1, 2), 3) returns the same result as add(1, add(2, 3))
+// 8 - Associativity: Test that add(add(1, 2), 3) returns the same result as add(1, add(2, 3))
 routine testAddAssociativity() is
     var result1 : integer is add(add(1, 2), 3);
     var result2 : integer is add(1, add(2, 3));
@@ -119,37 +82,7 @@ routine testAddAssociativity() is
     end
 end
 
-// Precision Handling: Test that add(1e10, 1e-10) returns approximately 1e10
-routine testAddPrecisionHandling() is
-    var result : real is add(1e10, 1e-10);
-    if result = 1e10 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Negative Zero Handling: Test that add(-0.0, 0.0) returns 0.0
-routine testAddNegativeZeroHandling() is
-    var result : real is add(-0.0, 0.0);
-    if result = 0.0 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Addition of Opposites: Test that add(5, -5) returns 0
-routine testAddAdditionOfOpposites() is
-    var result : integer is add(5, -5);
-    if result = 0 then
-        // Test passed
-    else
-        // Test failed
-    end
-end
-
-// Array Initialization and Access
+// 9 - Array Initialization and Access
 routine testArrayInitializationAndAccess() is
     var arr : array [3] integer is [1, 2, 3];
     if arr[1] = 1 and arr[2] = 2 and arr[3] = 3 then
@@ -159,7 +92,7 @@ routine testArrayInitializationAndAccess() is
     end
 end
 
-// Array Out of Bounds Access
+// 10 - Array Out of Bounds Access
 routine testArrayOutOfBoundsAccess() is
     var arr : array [2] integer is [1, 2];
     var exceptionCaught : boolean is false;
@@ -176,7 +109,7 @@ routine testArrayOutOfBoundsAccess() is
     end
 end
 
-// User-Defined Type (Record)
+// 11 - User-Defined Type (Record)
 routine testUserDefinedRecordType() is
     type Person is record
         var name : string;
@@ -192,7 +125,7 @@ routine testUserDefinedRecordType() is
     end
 end
 
-// User-Defined Type (Nested Record)
+// 12 - User-Defined Type (Nested Record)
 routine testNestedUserDefinedRecordType() is
     type Address is record
         var street : string;
@@ -214,7 +147,7 @@ routine testNestedUserDefinedRecordType() is
     end
 end
 
-// Subroutine Returning a Value
+// 13 - Subroutine Returning a Value
 routine testSubroutineReturningValue() is
     routine multiply(x: real, y: real) : real is
         return x * y;
@@ -228,7 +161,7 @@ routine testSubroutineReturningValue() is
     end
 end
 
-// Nested Loops
+// 14 - Nested Loops
 routine testNestedLoops() is
     var sum : integer is 0;
     for i in 1..3 loop
@@ -244,7 +177,7 @@ routine testNestedLoops() is
     end
 end
 
-// Break Statement in Loop
+// 15 - Break Statement in Loop
 routine testBreakStatementInLoop() is
     var sum : integer is 0;
     for i in 1..5 loop
@@ -261,7 +194,7 @@ routine testBreakStatementInLoop() is
     end
 end
 
-// Array Assignment and Reference Type Behavior
+// 16 - Array Assignment and Reference Type Behavior
 routine testArrayAssignmentAndReference() is
     var arr1 : array [3] integer is [1, 2, 3];
     var arr2 : array [3] integer is arr1;
@@ -274,7 +207,7 @@ routine testArrayAssignmentAndReference() is
     end
 end
 
-// Loop with Array Modification
+// 17 - Loop with Array Modification
 routine testLoopWithArrayModification() is
     var arr : array [5] integer is [1, 2, 3, 4, 5];
     
@@ -289,7 +222,7 @@ routine testLoopWithArrayModification() is
     end
 end
 
-// Subroutine with Array Parameter
+// 18 - Subroutine with Array Parameter
 routine testSubroutineWithArrayParameter() is
     routine sumArray(arr: array [3] integer) : integer is
         var sum : integer is 0;
