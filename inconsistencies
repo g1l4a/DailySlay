@@ -5,3 +5,4 @@ Missed parts and inconsistencies of the "I" language description:
 4) String (there is no such built-in type);
 5) No info on what to do if return statement in function is omitted;
 6) No info on how to write input/output.
+7) No upper bound on numbers

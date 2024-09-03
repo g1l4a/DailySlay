@@ -60,7 +60,6 @@ end
 
 // Invalid Input
 routine testAddInvalidInput() is
-    // Assuming an exception handling mechanism exists in the language
     if /* add("two", 3) raises error */ then
         // Test passed
     else
