@@ -149,3 +149,163 @@ routine testAddAdditionOfOpposites() is
         // Test failed
     end
 end
+
+// Array Initialization and Access
+routine testArrayInitializationAndAccess() is
+    var arr : array [3] integer is [1, 2, 3];
+    if arr[1] = 1 and arr[2] = 2 and arr[3] = 3 then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Array Out of Bounds Access
+routine testArrayOutOfBoundsAccess() is
+    var arr : array [2] integer is [1, 2];
+    var exceptionCaught : boolean is false;
+    try
+        var outOfBoundsElement : integer is arr[3];
+    catch
+        exceptionCaught is true;
+    end
+
+    if exceptionCaught then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// User-Defined Type (Record)
+routine testUserDefinedRecordType() is
+    type Person is record
+        var name : string;
+        var age : integer;
+    end
+
+    var p : Person is (name: "Alice", age: 30);
+    
+    if p.name = "Alice" and p.age = 30 then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// User-Defined Type (Nested Record)
+routine testNestedUserDefinedRecordType() is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+    
+    type Person is record
+        var name : string;
+        var age : integer;
+        var address : Address;
+    end
+
+    var p : Person is (name: "Bob", age: 40, address: (street: "Main St", city: "Townsville"));
+    
+    if p.name = "Bob" and p.address.street = "Main St" and p.address.city = "Townsville" then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Subroutine Returning a Value
+routine testSubroutineReturningValue() is
+    routine multiply(x: real, y: real) : real is
+        return x * y;
+    end
+
+    var result : real is multiply(3.0, 4.0);
+    if result = 12.0 then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Nested Loops
+routine testNestedLoops() is
+    var sum : integer is 0;
+    for i in 1..3 loop
+        for j in 1..2 loop
+            sum := sum + 1;
+        end
+    end
+
+    if sum = 6 then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Break Statement in Loop
+routine testBreakStatementInLoop() is
+    var sum : integer is 0;
+    for i in 1..5 loop
+        if i = 3 then
+            break;
+        end
+        sum := sum + i;
+    end
+
+    if sum = 3 then  // 1 + 2 = 3, loop breaks at i = 3
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Array Assignment and Reference Type Behavior
+routine testArrayAssignmentAndReference() is
+    var arr1 : array [3] integer is [1, 2, 3];
+    var arr2 : array [3] integer is arr1;
+    arr2[1] := 10;
+
+    if arr1[1] = 10 then  // Reference type, change reflects in arr1
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Loop with Array Modification
+routine testLoopWithArrayModification() is
+    var arr : array [5] integer is [1, 2, 3, 4, 5];
+    
+    for i in 1..5 loop
+        arr[i] := arr[i] * 2;
+    end
+    
+    if arr[1] = 2 and arr[5] = 10 then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// Subroutine with Array Parameter
+routine testSubroutineWithArrayParameter() is
+    routine sumArray(arr: array [3] integer) : integer is
+        var sum : integer is 0;
+        for i in 1..3 loop
+            sum := sum + arr[i];
+        end
+        return sum;
+    end
+
+    var arr : array [3] integer is [4, 5, 6];
+    var result : integer is sumArray(arr);
+    
+    if result = 15 then  // 4 + 5 + 6 = 15
+        // Test passed
+    else
+        // Test failed
+    end
+end
