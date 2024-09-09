@@ -241,3 +241,48 @@ routine testSubroutineWithArrayParameter() is
         // Test failed
     end
 end
+
+// 19 - Routine with Record Parameter
+routine testRoutineWithRecordParameter(address: record Address) is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+
+    routine printAddress(addr: Address) is
+            // Assuming there is some way to output or verify the printed address.
+            // For the sake of this test, let's assume we return the address as a string.
+            return addr.street & ", " & addr.city;
+        end
+
+        var testAddress : Address is (street: "Baker St", city: "London");
+        var result : string is printAddress(testAddress);
+        
+        if result = "Baker St, London" then
+            // Test passed
+        else
+            // Test failed
+        end
+    end
+
+
+// 20 - Routine Returning a Record
+routine testRoutineReturningRecord() is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+
+    routine createAddress(street: string, city: string) : Address is
+        var addr : Address is (street: street, city: city);
+        return addr;
+    end
+
+    var testAddress : Address is createAddress("Elm St", "Springfield");
+    
+    if testAddress.street = "Elm St" and testAddress.city = "Springfield" then
+        // Test passed
+    else
+        // Test failed
+    end
+end
