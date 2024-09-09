@@ -1,0 +1,19 @@
+routine myRoutine {
+    var x = 10;
+    var y = 20;
+    if x > y then
+        print 'x is greater';
+    else
+        print 'y is greater';
+    end
+    
+    var arr = [1, 2, 3, 4];
+    print arr[2];
+    
+    while x > 0 {
+        x = x - 1;
+        print x;
+    }
+    
+    return x;
+}
