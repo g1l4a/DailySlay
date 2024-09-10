@@ -286,3 +286,82 @@ routine testRoutineReturningRecord() is
         // Test failed
     end
 end
+
+// 21 - String Initialization and Access
+routine testStringInitializationAndAccess() is
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    if str[1] = 'H' and str[5] = 'o' then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// 22 - String Concatenation
+routine testStringConcatenation() is
+    routine concat(a: array [3] char, b: array [2] char) : array [5] char 
+is
+        var result : array [5] char;
+        result[1] := a[1];
+        result[2] := a[2];
+        result[3] := a[3];
+        result[4] := b[1];
+        result[5] := b[2];
+        return result;
+    end
+
+    var str1 : array [3] char is ['H', 'e', 'y'];
+    var str2 : array [2] char is [' ', 'U'];
+    var result : array [5] char is concat(str1, str2);
+    
+    if result[1] = 'H' and result[5] = 'U' then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// 23 - String Comparison
+routine testStringComparison() is
+    routine compare(a: array [5] char, b: array [5] char) : boolean is
+        return a[1] = b[1] and a[5] = b[5];
+    end
+
+    var str1 : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    var str2 : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    
+    if compare(str1, str2) then
+        // Test passed
+    else
+        // Test failed
+    end
+end
+
+// 24 - Print Statement (Simulated)
+routine testPrintStatement() is
+    routine printCharArray(a: array [5] char) is
+        // Simulate printing each character in the array
+    end
+
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    printCharArray(str);
+    // Test passed if print simulation works
+end
+
+// 25 - Error Handling: Invalid Character Access
+routine testInvalidCharacterAccess() is
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    var exceptionCaught : boolean is false;
+
+    try
+        var invalidChar : char is str[6];  // Out of bounds
+    catch
+        exceptionCaught := true;
+    end
+
+    if exceptionCaught then
+        // Test passed
+    else
+        // Test failed
+    end
+end
