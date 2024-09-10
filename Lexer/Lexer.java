@@ -1,9 +1,6 @@
-
-import java.util.ArrayList;
-import java.util.List;
-
 enum TokenType {
-    TK_TYPE, TK_REAL, TK_BOOLEAN, TK_INT, TK_FLOAT, TK_CHAR, TK_ARRAY, TK_ROUTINE, TK_RECORD, TK_TRUE, TK_FALSE, TK_PROCEDURE,
+    TK_TYPE, TK_REAL, TK_BOOLEAN, TK_INT, TK_FLOAT, TK_CHAR,
+     TK_ROUTINE, TK_RECORD, TK_TRUE, TK_FALSE, TK_PROCEDURE,
     TK_VAR, TK_IS, TK_IF, TK_THEN, TK_ELSE, TK_END,
     TK_PRINT, TK_COMMA, TK_SEMICOLON, TK_COLON, TK_WHILE, TK_FOR, TK_LOOP, TK_IN,
     TK_LPAREN, TK_RPAREN, TK_LBRACKET, TK_RBRACKET, TK_PLUS, TK_MINUS,
@@ -62,6 +59,10 @@ class Lexer {
             if (currentChar == '\n') {
                 line++;
                 column = 1;
+            } else if (currentChar == '\t') {
+                column += 4; 
+            } else {
+                column++;
             }
             advance();
         }
@@ -70,27 +71,13 @@ class Lexer {
     private Token charLiteral() {
         StringBuilder result = new StringBuilder();
         int startCol = column;
-        advance();
+        advance(); 
         while (currentChar != '\'' && currentChar != '\0') {
             result.append(currentChar);
             advance();
         }
-        advance();
+        advance(); 
         return new Token(TokenType.TK_CHAR, result.toString(), line, startCol);
-    }
-
-    private Token arrayLiteral() {
-        List<String> elements = new ArrayList<>();
-        int startCol = column;
-        advance();
-        while (currentChar != ']' && currentChar != '\0') {
-            if (Character.isLetter(currentChar)) {
-                elements.add(String.valueOf(currentChar));
-            }
-            advance();
-        }
-        advance();
-        return new Token(TokenType.TK_ARRAY, elements.toString(), line, startCol);
     }
 
     private Token identifier() {
@@ -150,28 +137,63 @@ class Lexer {
         return new Token(type, value, line, startCol);
     }
 
+    private Token numberLiteral() {
+        StringBuilder result = new StringBuilder();
+        int startCol = column;
+        boolean isFloat = false;
+
+        while (Character.isDigit(currentChar) || currentChar == '.') {
+            if (currentChar == '.') {
+                if (isFloat) {
+                    break; 
+                }
+                isFloat = true;
+            }
+            result.append(currentChar);
+            advance();
+        }
+
+        TokenType type = isFloat ? TokenType.TK_FLOAT : TokenType.TK_INT;
+        return new Token(type, result.toString(), line, startCol);
+    }
+
+    private Token handleApostrophe() {
+        int startCol = column;
+        advance();
+        return new Token(TokenType.TK_APOSTRPHE, "'", line, startCol);
+    }
+
+    private Token handleNewline() {
+        int startCol = column;
+        advance(); 
+        return new Token(TokenType.TK_NEWLINE, "\n", line, startCol);
+    }
+
     public Token nextToken() {
         while (currentChar != '\0') {
             if (Character.isWhitespace(currentChar)) {
                 if (currentChar == '\n') {
                     line++;
                     column = 1;
+                    advance();
+                    return new Token(TokenType.TK_NEWLINE, "\n", line, column);
                 } else if (currentChar == '\t') {
-                    column += 4;
+                    column += 4; // Assuming tab as 4 spaces
+                    advance();
                 } else {
                     column++;
+                    advance();
                 }
-                advance();
                 continue;
             }
             if (currentChar == '\'') {
                 return charLiteral();
             }
-            if (currentChar == '[') {
-                return arrayLiteral();
-            }
             if (Character.isLetter(currentChar)) {
                 return identifier();
+            }
+            if (Character.isDigit(currentChar)) {
+                return numberLiteral();
             }
 
             int startCol = column;
@@ -247,6 +269,8 @@ class Lexer {
                 case ':':
                     advance();
                     return new Token(TokenType.TK_COLON, ":", line, startCol);
+                case '\'':
+                    return handleApostrophe();
                 default:
                     advance();
                     return new Token(TokenType.TK_ERROR, "Unrecognized character", line, startCol);
