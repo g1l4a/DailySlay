@@ -1,0 +1,375 @@
+// 1 - Basic Calculations
+routine testBasicCalculations() is
+    var positive : integer is add(2, 3);
+    var negative : integer is add(-2, -3);
+    var zero: integer is add(0, 0);
+    var different_sign: integer is add(3, -4);
+    if positive = 5 and negative = -5 and zero = 0 and different_sign = -1 then
+        print("Basic Calculations Test Passed: positive = ", positive, ", negative = ", negative, ", zero = ", zero, ", different_sign = ", different_sign);
+    else
+        print("Basic Calculations Test Failed: expected positive = 5, negative = -5, zero = 0, different_sign = -1, but got positive = ", positive, ", negative = ", negative, ", zero = ", zero, ", different_sign = ", different_sign);
+    end
+end
+
+// 2 - Large Numbers
+routine testAddLargeNumbers() is
+    var result : integer is add(1000000, 1000000);
+    if result = 2000000 then
+        print("Large Numbers Test Passed: result = ", result);
+    else
+        print("Large Numbers Test Failed: expected result = 2000000, but got result = ", result);
+    end
+end
+
+// 3 - Floating Point Numbers
+routine testAddFloatingPointNumbers() is
+    var result : real is add(2.5, 3.5);
+    if result = 6.0 then
+        print("Floating Point Numbers Test Passed: result = ", result);
+    else
+        print("Floating Point Numbers Test Failed: expected result = 6.0, but got result = ", result);
+    end
+end
+
+// 4 - Invalid Input
+routine testAddInvalidInput() is
+    var exceptionCaught : boolean is false;
+    try
+        var result : integer is add("two", 3);  // Simulating invalid input
+    catch
+        exceptionCaught is true;
+    end
+    if exceptionCaught then
+        print("Invalid Input Test Passed: error correctly raised for invalid input.");
+    else
+        print("Invalid Input Test Failed: no error raised for invalid input.");
+    end
+end
+
+// 5 - Boundary Conditions
+routine testAddBoundaryConditions() is
+    var maxInt : integer is 2147483647;  // Assuming max integer value
+    var result : integer is add(maxInt, 1);
+    if result = 2147483648 then  // Check for overflow behavior
+        print("Boundary Conditions Test Passed: overflow correctly handled.");
+    else
+        print("Boundary Conditions Test Failed: expected overflow behavior, but got result = ", result);
+    end
+end
+
+// 6 - Null Input
+routine testAddNullInput() is
+    var exceptionCaught : boolean is false;
+    try
+        var result : integer is add(null, 5);  // Simulating null input
+    catch
+        exceptionCaught is true;
+    end
+    if exceptionCaught then
+        print("Null Input Test Passed: error correctly raised for null input.");
+    else
+        print("Null Input Test Failed: no error raised for null input.");
+    end
+end
+
+// 7 - Commutativity
+routine testAddCommutativity() is
+    var result1 : integer is add(3, 2);
+    var result2 : integer is add(2, 3);
+    if result1 = result2 then
+        print("Commutativity Test Passed: add(3, 2) = add(2, 3) = ", result1);
+    else
+        print("Commutativity Test Failed: expected add(3, 2) = add(2, 3), but got result1 = ", result1, " and result2 = ", result2);
+    end
+end
+
+// 8 - Associativity
+routine testAddAssociativity() is
+    var result1 : integer is add(add(1, 2), 3);
+    var result2 : integer is add(1, add(2, 3));
+    if result1 = result2 then
+        print("Associativity Test Passed: add(add(1, 2), 3) = add(1, add(2, 3)) = ", result1);
+    else
+        print("Associativity Test Failed: expected add(add(1, 2), 3) = add(1, add(2, 3)), but got result1 = ", result1, " and result2 = ", result2);
+    end
+end
+
+// 9 - Array Initialization and Access
+routine testArrayInitializationAndAccess() is
+    var arr : array [3] integer is [1, 2, 3];
+    if arr[1] = 1 and arr[2] = 2 and arr[3] = 3 then
+        print("Array Initialization and Access Test Passed: arr = [", arr[1], ", ", arr[2], ", ", arr[3], "]");
+    else
+        print("Array Initialization and Access Test Failed: expected arr = [1, 2, 3], but got arr = [", arr[1], ", ", arr[2], ", ", arr[3], "]");
+    end
+end
+
+// 10 - Array Out of Bounds Access
+routine testArrayOutOfBoundsAccess() is
+    var arr : array [2] integer is [1, 2];
+    var exceptionCaught : boolean is false;
+    try
+        var outOfBoundsElement : integer is arr[3];  // Out of bounds access
+    catch
+        exceptionCaught is true;
+    end
+    if exceptionCaught then
+        print("Array Out of Bounds Access Test Passed: error correctly raised for out-of-bounds access.");
+    else
+        print("Array Out of Bounds Access Test Failed: no error raised for out-of-bounds access.");
+    end
+end
+
+// 11 - User-Defined Type (Record)
+routine testUserDefinedRecordType() is
+    type Person is record
+        var name : string;
+        var age : integer;
+    end
+
+    var p : Person is (name: "Alice", age: 30);
+    
+    if p.name = "Alice" and p.age = 30 then
+        print("User-Defined Record Type Test Passed: Person = (name: ", p.name, ", age: ", p.age, ")");
+    else
+        print("User-Defined Record Type Test Failed: expected Person = (name: Alice, age: 30), but got Person = (name: ", p.name, ", age: ", p.age, ")");
+    end
+end
+
+// 12 - User-Defined Type (Nested Record)
+routine testNestedUserDefinedRecordType() is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+    
+    type Person is record
+        var name : string;
+        var age : integer;
+        var address : Address;
+    end
+
+    var p : Person is (name: "Bob", age: 40, address: (street: "Main St", city: "Townsville"));
+    
+    if p.name = "Bob" and p.address.street = "Main St" and p.address.city = "Townsville" then
+        print("Nested User-Defined Record Type Test Passed: Person = (name: ", p.name, ", address: (street: ", p.address.street, ", city: ", p.address.city, "))");
+    else
+        print("Nested User-Defined Record Type Test Failed: expected Person = (name: Bob, address: (street: Main St, city: Townsville)), but got Person = (name: ", p.name, ", address: (street: ", p.address.street, ", city: ", p.address.city, "))");
+    end
+end
+
+// 13 - Subroutine Returning a Value
+routine testSubroutineReturningValue() is
+    routine multiply(x: real, y: real) : real is
+        return x * y;
+    end
+
+    var result : real is multiply(3.0, 4.0);
+    if result = 12.0 then
+        print("Subroutine Returning Value Test Passed: result = ", result);
+    else
+        print("Subroutine Returning Value Test Failed: expected result = 12.0, but got result = ", result);
+    end
+end
+
+// 14 - Nested Loops
+routine testNestedLoops() is
+    var sum : integer is 0;
+    for i in 1..3 loop
+        for j in 1..2 loop
+            sum := sum + 1;
+        end
+    end
+
+    if sum = 6 then
+        print("Nested Loops Test Passed: sum = ", sum);
+    else
+        print("Nested Loops Test Failed: expected sum = 6, but got sum = ", sum);
+    end
+end
+
+// 15 - Break Statement in Loop
+routine testBreakStatementInLoop() is
+    var sum : integer is 0;
+    for i in 1..5 loop
+        if i = 3 then
+            break;
+        end
+        sum := sum + i;
+    end
+
+    if sum = 3 then  // 1 + 2 = 3, loop breaks at i = 3
+        print("Break Statement in Loop Test Passed: sum = ", sum);
+    else
+        print("Break Statement in Loop Test Failed: expected sum = 3, but got sum = ", sum);
+    end
+end
+
+// 16 - Array Assignment and Reference Type Behavior
+routine testArrayAssignmentAndReference() is
+    var arr1 : array [3] integer is [1, 2, 3];
+    var arr2 : array [3] integer is arr1;
+    arr2[1] := 10;
+
+    if arr1[1] = 10 then  // Reference type, change reflects in arr1
+        print("Array Assignment and Reference Type Behavior Test Passed: arr1[1] = ", arr1[1]);
+    else
+        print("Array Assignment and Reference Type Behavior Test Failed: expected arr1[1] = 10, but got arr1[1] = ", arr1[1]);
+    end
+end
+
+// 17 - Loop with Array Modification
+routine testLoopWithArrayModification() is
+    var arr : array [5] integer is [1, 2, 3, 4, 5];
+    
+    for i in 1..5 loop
+        arr[i] := arr[i] * 2;
+    end
+    
+    if arr[1] = 2 and arr[5] = 10 then
+        print("Loop with Array Modification Test Passed: arr = [", arr[1], ", ", arr[2], ", ", arr[3], ", ", arr[4], ", ", arr[5], "]");
+    else
+        print("Loop with Array Modification Test Failed: expected arr = [2, 4, 6, 8, 10], but got arr = [", arr[1], ", ", arr[2], ", ", arr[3], ", ", arr[4], ", ", arr[5], "]");
+    end
+end
+
+// 18 - Subroutine with Array Parameter
+routine testSubroutineWithArrayParameter() is
+    routine sumArray(arr: array [3] integer) : integer is
+        var sum : integer is 0;
+        for i in 1..3 loop
+            sum := sum + arr[i];
+        end
+        return sum;
+    end
+
+    var arr : array [3] integer is [4, 5, 6];
+    var result : integer is sumArray(arr);
+    
+    if result = 15 then  // 4 + 5 + 6 = 15
+        print("Subroutine with Array Parameter Test Passed: result = ", result);
+    else
+        print("Subroutine with Array Parameter Test Failed: expected result = 15, but got result = ", result);
+    end
+end
+
+// 19 - Routine with Record Parameter
+routine testRoutineWithRecordParameter(address: record Address) is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+
+    routine printAddress(addr: Address) is
+            return addr.street & ", " & addr.city;
+        end
+
+        var testAddress : Address is (street: "Baker St", city: "London");
+        var result : string is printAddress(testAddress);
+        
+        if result = "Baker St, London" then
+            print("Routine with Record Parameter Test Passed: result = ", result);
+        else
+            print("Routine with Record Parameter Test Failed: expected result = 'Baker St, London', but got result = ", result);
+        end
+    end
+
+// 20 - Routine Returning a Record
+routine testRoutineReturningRecord() is
+    type Address is record
+        var street : string;
+        var city : string;
+    end
+
+    routine createAddress(street: string, city: string) : Address is
+        var addr : Address is (street: street, city: city);
+        return addr;
+    end
+
+    var testAddress : Address is createAddress("Elm St", "Springfield");
+    
+    if testAddress.street = "Elm St" and testAddress.city = "Springfield" then
+        print("Routine Returning a Record Test Passed: Address = (street: ", testAddress.street, ", city: ", testAddress.city, ")");
+    else
+        print("Routine Returning a Record Test Failed: expected Address = (street: Elm St, city: Springfield), but got Address = (street: ", testAddress.street, ", city: ", testAddress.city, ")");
+    end
+end
+
+// 21 - String Initialization and Access
+routine testStringInitializationAndAccess() is
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    if str[1] = 'H' and str[5] = 'o' then
+        print("String Initialization and Access Test Passed: str = ['", str[1], "', '", str[2], "', '", str[3], "', '", str[4], "', '", str[5], "']");
+    else
+        print("String Initialization and Access Test Failed: expected str = ['H', 'e', 'l', 'l', 'o'], but got str = ['", str[1], "', '", str[2], "', '", str[3], "', '", str[4], "', '", str[5], "']");
+    end
+end
+
+// 22 - String Concatenation
+routine testStringConcatenation() is
+    routine concat(a: array [3] char, b: array [2] char) : array [5] char is
+        var result : array [5] char;
+        result[1] := a[1];
+        result[2] := a[2];
+        result[3] := a[3];
+        result[4] := b[1];
+        result[5] := b[2];
+        return result;
+    end
+
+    var str1 : array [3] char is ['H', 'e', 'y'];
+    var str2 : array [2] char is [' ', 'U'];
+    var result : array [5] char is concat(str1, str2);
+    
+    if result[1] = 'H' and result[5] = 'U' then
+        print("String Concatenation Test Passed: result = ['", result[1], "', '", result[2], "', '", result[3], "', '", result[4], "', '", result[5], "']");
+    else
+        print("String Concatenation Test Failed: expected result = ['H', 'e', 'y', ' ', 'U'], but got result = ['", result[1], "', '", result[2], "', '", result[3], "', '", result[4], "', '", result[5], "']");
+    end
+end
+
+// 23 - String Comparison
+routine testStringComparison() is
+    routine compare(a: array [5] char, b: array [5] char) : boolean is
+        return a[1] = b[1] and a[5] = b[5];
+    end
+
+    var str1 : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    var str2 : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    
+    if compare(str1, str2) then
+        print("String Comparison Test Passed: str1 = str2");
+    else
+        print("String Comparison Test Failed: str1 and str2 are not equal.");
+    end
+end
+
+// 24 - Print Statement (Simulated)
+routine testPrintStatement() is
+    routine printCharArray(a: array [5] char) is
+        // Simulate printing each character in the array
+        print("Print Statement Test: array = ['", a[1], "', '", a[2], "', '", a[3], "', '", a[4], "', '", a[5], "']");
+    end
+
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    printCharArray(str);
+    print("Print Statement Test Passed if print simulation works.");
+end
+
+// 25 - Error Handling: Invalid Character Access
+routine testInvalidCharacterAccess() is
+    var str : array [5] char is ['H', 'e', 'l', 'l', 'o'];
+    var exceptionCaught : boolean is false;
+
+    try
+        var invalidChar : char is str[6];  // Out of bounds
+    catch
+        exceptionCaught := true;
+    end
+
+    if exceptionCaught then
+        print("Invalid Character Access Test Passed: error correctly raised for out-of-bounds access.");
+    else
+        print("Invalid Character Access Test Failed: no error raised for out-of-bounds access.");
+    end
+end
